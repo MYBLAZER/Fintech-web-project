@@ -32,3 +32,8 @@ variable "oidc_provider_arn" {
   type        = string
 }
 
+variable "account_id" {
+  description = "AWS Account ID"
+  type        = string
+
+}
