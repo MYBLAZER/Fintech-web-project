@@ -9,7 +9,7 @@ variable "main_region" {
 }
 
 variable "env_name" {
-  description = "Environment name (e.g., dev, staging, prod)"
+  description = "Environment name (e.g., dev, prod)"
   type        = string
 }
 
@@ -31,3 +31,4 @@ variable "oidc_provider_arn" {
   description = "OIDC Provider ARN used for IRSA"
   type        = string
 }
+

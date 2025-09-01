@@ -62,7 +62,7 @@ resource "kubernetes_namespace" "prometheus-namespace" {
 # Prometheus Role
 ################################################################################
 
-module "prometheus_role" {
+resource "prometheus_role" "prometheus_role" {
   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
 
   role_name                                        = "${var.env_name}_prometheus"
@@ -122,7 +122,7 @@ resource "helm_release" "prometheus" {
 
   set {
     name  = "server.remoteWrite[0].sigv4.region"
-    value = var.main-region
+    value = var.main_region
   }
 
 }

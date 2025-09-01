@@ -14,7 +14,7 @@ variable "instance_type" {
 variable "aws_region" {
   description = "The AWS region to deploy resources"
   type        = string
-  default     = "us-east-1"
+  default     = "us-east-2"
 }
 
 variable "vpc_id" {
@@ -47,8 +47,8 @@ variable "user_data" {
 variable "tags" {
   description = "Common tags for the cluster resources"
   type        = map(string)
-  default     = {
-    env       = "dev",
+  default = {
+    env       = "prod",
     terraform = "true"
   }
 }

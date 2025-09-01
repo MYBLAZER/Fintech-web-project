@@ -6,7 +6,7 @@ echo "Installing kubectl..."
 
 # Download kubectl binary
 curl -fsSL -o /usr/local/bin/kubectl \
-  https://s3.us-west-2.amazonaws.com/amazon-eks/1.27.12/2024-04-19/bin/linux/amd64/kubectl
+  https://s3.us-east-1.amazonaws.com/amazon-eks/1.27.12/2024-04-19/bin/linux/amd64/kubectl
 
 # Make it executable and available globally
 chmod +x /usr/local/bin/kubectl

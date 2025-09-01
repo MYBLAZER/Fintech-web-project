@@ -22,9 +22,9 @@ module "eks" {
   cluster_endpoint_public_access           = true
   bootstrap_self_managed_addons            = false
 
-  vpc_id                   = var.vpc_id
-  subnet_ids               = var.private_subnets
-  control_plane_subnet_ids = var.private_subnets
+  vpc_id                                = var.vpc_id
+  subnet_ids                            = var.private_subnets
+  control_plane_subnet_ids              = var.private_subnets
   cluster_additional_security_group_ids = var.security_group_ids
 
   create_cloudwatch_log_group = true
@@ -38,8 +38,8 @@ module "eks" {
       most_recent = true
     }
     vpc-cni = {
-      most_recent               = true
-      service_account_role_arn  = var.cni_role_arn
+      most_recent              = true
+      service_account_role_arn = var.cni_role_arn
     }
     eks-pod-identity-agent = {
       most_recent = true
@@ -65,9 +65,9 @@ module "eks" {
 
   access_entries = {
     # ✅ Map 'fusi' user to eks-admins
-    fusi = {
+    azwe = {
       kubernetes_groups = ["eks-admins"]
-      principal_arn     = "arn:aws:iam::999568710647:user/fusi"
+      principal_arn     = "arn:aws:iam::514670561567:user/azwe"
 
       policy_associations = [
         {
@@ -81,7 +81,7 @@ module "eks" {
 
     github_runner = {
       kubernetes_groups = ["eks-admins"]
-      principal_arn     = "arn:aws:iam::999568710647:role/github-runner-ssm-role"
+      principal_arn     = "arn:aws:iam::514670561567:role/github-runner-ssm-role"
 
       policy_associations = [
         {

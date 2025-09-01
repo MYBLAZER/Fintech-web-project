@@ -79,7 +79,7 @@ module "eks-client-node" {
   apt-get install -y terraform
 
   echo "Installing kubectl..."
-  curl -LO https://s3.us-west-2.amazonaws.com/amazon-eks/1.31.3/2024-12-12/bin/linux/amd64/kubectl
+  curl -LO https://s3.us-east-1.amazonaws.com/amazon-eks/1.31.3/2024-12-12/bin/linux/amd64/kubectl
   install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
   echo "Installing Docker CE..."
@@ -132,9 +132,12 @@ module "ecr" {
 
 
 module "iam" {
-  source      = "./../modules/iam"
-  environment = var.env_name
-  tags        = local.common_tags
+  source            = "./../modules/iam"
+  environment       = var.env_name
+  aws_account_id    = var.aws_account_id
+  cluster_name      = var.cluster_name
+  eks_oidc_provider = module.eks.oidc_provider_arn
+
 }
 
 
