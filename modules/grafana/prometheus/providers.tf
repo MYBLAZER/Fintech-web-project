@@ -1,3 +1,4 @@
 provider "aws" {
-  region  = var.main-region
+  region = var.main_region
+  alias  = "main"
 }

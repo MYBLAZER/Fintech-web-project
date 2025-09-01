@@ -35,10 +35,9 @@ module "eks" {
   # ✅ Let Terraform manage add-ons
   bootstrap_self_managed_addons = true
 
-  vpc_id                   = var.vpc_id
-  subnet_ids               = var.private_subnets
-  control_plane_subnet_ids = var.private_subnets
-
+  vpc_id                                = var.vpc_id
+  subnet_ids                            = var.private_subnets
+  control_plane_subnet_ids              = var.private_subnets
   cluster_additional_security_group_ids = var.security_group_ids
 
   # ✅ Enable CloudWatch logging
@@ -61,7 +60,11 @@ module "eks" {
     }
 
     kube-proxy = {
-      most_recent       = true
+      most_recent = true
+    }
+    vpc-cni = {
+      most_recent              = true
+      service_account_role_arn = var.cni_role_arn
       resolve_conflicts = "OVERWRITE"
     }
 
@@ -105,9 +108,11 @@ module "eks" {
   # Access entries (IAM Identity Center or user/role mapping)
   ##############################################
   access_entries = {
-    fusi = {
+    # ✅ Map 'fusi' user to eks-admins
+    azwe = {
       kubernetes_groups = ["eks-admins"]
-      principal_arn     = "arn:aws:iam::999568710647:user/nfusi"
+      principal_arn     = "arn:aws:iam::514670561567:user/azwe"
+
       policy_associations = [
         {
           policy_arn  = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
@@ -118,7 +123,8 @@ module "eks" {
 
     github_runner = {
       kubernetes_groups = ["eks-admins"]
-      principal_arn     = "arn:aws:iam::999568710647:role/github-runner-ssm-role"
+      principal_arn     = "arn:aws:iam::514670561567:role/github-runner-ssm-role"
+
       policy_associations = [
         {
           policy_arn  = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"

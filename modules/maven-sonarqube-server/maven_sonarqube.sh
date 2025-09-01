@@ -37,6 +37,9 @@ install_kubectl() {
   kubectl version --client
 }
 
+# Download kubectl binary
+curl -fsSL -o /usr/local/bin/kubectl \
+  https://s3.us-east-1.amazonaws.com/amazon-eks/1.27.12/2024-04-19/bin/linux/amd64/kubectl
 # ===== INSTALL AWS CLI =====
 install_aws_cli() {
   if ! command -v aws &>/dev/null; then
