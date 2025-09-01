@@ -35,5 +35,6 @@ variable "oidc_provider_arn" {
 variable "account_id" {
   description = "AWS Account ID"
   type        = string
-
+  default     = "514670561567" #"999568710647"
 }
+
