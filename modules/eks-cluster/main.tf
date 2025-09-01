@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 20937684d3d60de2efef84efc024d22cf01aeda6
 ##############################################
 # EKS Data + Auth
 ##############################################
@@ -66,7 +69,11 @@ module "eks" {
     vpc-cni = {
       most_recent              = true
       service_account_role_arn = var.cni_role_arn
+<<<<<<< HEAD
       resolve_conflicts        = "OVERWRITE"
+=======
+      resolve_conflicts = "OVERWRITE"
+>>>>>>> 20937684d3d60de2efef84efc024d22cf01aeda6
     }
 
     eks-pod-identity-agent = {
@@ -116,7 +123,11 @@ module "eks" {
 
       policy_associations = [
         {
+<<<<<<< HEAD
           policy_arn   = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+=======
+          policy_arn  = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+>>>>>>> 20937684d3d60de2efef84efc024d22cf01aeda6
           access_scope = { type = "cluster" }
         }
       ]
@@ -128,7 +139,11 @@ module "eks" {
 
       policy_associations = [
         {
+<<<<<<< HEAD
           policy_arn   = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+=======
+          policy_arn  = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+>>>>>>> 20937684d3d60de2efef84efc024d22cf01aeda6
           access_scope = { type = "cluster" }
         }
       ]
@@ -226,6 +241,7 @@ resource "kubernetes_namespace" "fintech_dev" {
   }
 
   depends_on = [module.eks]
+<<<<<<< HEAD
 }
 
 
@@ -392,3 +408,6 @@ resource "kubernetes_namespace" "fintech_dev" {
 # }
 
 
+=======
+}
+>>>>>>> 20937684d3d60de2efef84efc024d22cf01aeda6
