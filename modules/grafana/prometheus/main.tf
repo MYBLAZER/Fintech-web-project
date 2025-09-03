@@ -71,7 +71,7 @@ resource "prometheus_role" "prometheus_role" {
 
   oidc_providers = {
     main = {
-      provider_arn               = var.oidc_provider_arn
+      provider_arn               = module.eks.oidc_provider_arn
       namespace_service_accounts = ["${kubernetes_namespace.prometheus-namespace.metadata[0].name}:amp-iamproxy-ingest-role"]
     }
   }

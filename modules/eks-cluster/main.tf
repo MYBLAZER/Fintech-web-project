@@ -24,9 +24,9 @@ provider "kubernetes" {
 # }
 
 # Get EKS cluster info
-data "aws_eks_cluster" "this" {
-  name = module.eks.cluster_name
-}
+# data "aws_eks_cluster" "this" {
+#   name = module.eks.cluster_name
+# }
 
 # Get OIDC provider automatically
 data "aws_iam_openid_connect_provider" "oidc" {
