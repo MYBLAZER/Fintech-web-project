@@ -28,14 +28,14 @@ data "aws_iam_policy_document" "assume_role_policy" {
 
     principals {
       type        = "Federated"
-      identifiers = [var.oidc_provider_arn]
+      identifiers = [module.eks.oidc_provider_arn]
     }
 
     condition {
       test = "StringEquals"
 
       # Correct: extract the URL path only, remove the ARN prefix
-      variable = "${replace(var.oidc_provider_arn, "arn:aws:iam::${var.account_id}:oidc-provider/", "")}:sub"
+      variable = "${replace(module.eks.oidc_provider_arn, "arn:aws:iam::${var.account_id}:oidc-provider/", "")}:sub"
 
       values = ["system:serviceaccount:kube-system:aws-load-balancer-controller"]
     }

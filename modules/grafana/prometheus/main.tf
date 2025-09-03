@@ -71,7 +71,7 @@ resource "prometheus_role" "prometheus_role" {
 
   oidc_providers = {
     main = {
-      provider_arn               = var.oidc_provider_arn
+      provider_arn               = module.eks.oidc_provider_arn
       namespace_service_accounts = ["${kubernetes_namespace.prometheus-namespace.metadata[0].name}:amp-iamproxy-ingest-role"]
     }
   }
@@ -102,28 +102,50 @@ resource "kubernetes_service_account" "service-account" {
 ################################################################################
 
 resource "helm_release" "prometheus" {
-  name       = "prometheus-community"
+  name       = "prometheus"
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "prometheus"
-  version    = "23.1.0"
-  namespace  = kubernetes_namespace.prometheus-namespace.metadata[0].name
-  depends_on = [
-    kubernetes_service_account.service-account
-  ]
+  version    = "23.1.0" #"25.12.0"
 
-  values = [
-    "${file("${path.module}/templates/amp_ingest_override_values.yaml")}"
-  ]
-
-  set {
-    name  = "server.remoteWrite[0].url"
-    value = "${module.prometheus.workspace_prometheus_endpoint}api/v1/remote_write"
-  }
-
-  set {
-    name  = "server.remoteWrite[0].sigv4.region"
-    value = var.main_region
-  }
-
+  values = [yamlencode({
+    server = {
+      remoteWrite = [
+        {
+          url = "${chomp(module.prometheus.workspace_prometheus_endpoint)}api/v1/remote_write"
+          sigv4 = {
+            region = var.main_region
+          }
+        }
+      ]
+    }
+  })]
 }
+
+
+
+# resource "helm_release" "prometheus" {
+#   name       = "prometheus-community"
+#   repository = "https://prometheus-community.github.io/helm-charts"
+#   chart      = "prometheus"
+#   version    = "23.1.0"
+#   namespace  = kubernetes_namespace.prometheus-namespace.metadata[0].name
+#   depends_on = [
+#     kubernetes_service_account.service-account
+#   ]
+
+#   values = [
+#     "${file("${path.module}/templates/amp_ingest_override_values.yaml")}"
+#   ]
+
+#   set {
+#     name  = "server.remoteWrite[0].url"
+#     value = "${module.prometheus.workspace_prometheus_endpoint}api/v1/remote_write"
+#   }
+
+#   set {
+#     name  = "server.remoteWrite[0].sigv4.region"
+#     value = var.main_region
+#   }
+
+# }
 

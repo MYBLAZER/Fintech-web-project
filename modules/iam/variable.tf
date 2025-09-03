@@ -27,7 +27,9 @@ variable "cluster_name" {
 variable "eks_oidc_provider" {
   description = "EKS OIDC Provider ARN"
   type        = string
+
 }
+
 variable "role_name" {
   description = "Role name for the IAM roles"
   type        = string

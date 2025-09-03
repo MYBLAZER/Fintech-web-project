@@ -29,3 +29,6 @@ locals {
   })
 }
 
+locals {
+  oidc_provider_arn = module.eks.oidc_provider_arn
+}

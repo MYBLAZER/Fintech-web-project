@@ -56,13 +56,17 @@ output "oidc_provider" {
   value       = module.eks.oidc_provider
 }
 
-output "oidc_provider_arn" {
-  description = "The ARN of the OIDC Provider if `enable_irsa = true`"
-  value       = module.eks.oidc_provider_arn
-}
+# output "oidc_provider_arn" {
+#   description = "The ARN of the OIDC Provider if `enable_irsa = true`"
+#   value       = module.eks.oidc_provider_arn
+# }
 
 output "cluster_tls_certificate_sha1_fingerprint" {
   description = "The SHA1 fingerprint of the public key of the cluster's certificate"
   value       = module.eks.cluster_tls_certificate_sha1_fingerprint
 }
 
+# Now you can reference the ARN anywhere
+output "oidc_provider_arn" {
+  value = data.aws_iam_openid_connect_provider.oidc.arn
+}

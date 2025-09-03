@@ -52,3 +52,10 @@ variable "env_name" {
   type = string
 }
 
+# variable "oidc_provider_arn" {
+#   description = "OIDC Provider ARN used for IRSA"
+#   type        = string
+#   default     = "arn:aws:iam::514670561567:oidc-provider/oidc.eks.us-east-2.amazonaws.com/id/<eks_oidc_id>"
+#   #default    = "arn:aws:iam::123456789012:oidc-provider/oidc.eks.us-east-2.amazonaws.com/id/A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6}
+#   sensitive = true
+# }

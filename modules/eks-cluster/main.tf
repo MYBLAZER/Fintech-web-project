@@ -18,6 +18,30 @@ provider "kubernetes" {
   }
 }
 
+
+# data "aws_eks_cluster" "this" {
+#   name = var.cluster_name
+# }
+
+# Get EKS cluster info
+# data "aws_eks_cluster" "this" {
+#   name = module.eks.cluster_name
+# }
+
+# Get OIDC provider automatically
+data "aws_iam_openid_connect_provider" "oidc" {
+  url = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
+}
+# Get OIDC provider ARN
+# data "aws_eks_cluster_auth" "this" {
+#   name = var.cluster_name
+# }
+
+# data "aws_iam_openid_connect_provider" "oidc" {
+#   arn = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
+# }
+
+
 ##############################################
 # EKS Control Plane + Node Groups + Add-ons
 ##############################################
@@ -65,7 +89,7 @@ module "eks" {
     vpc-cni = {
       most_recent              = true
       service_account_role_arn = var.cni_role_arn
-      resolve_conflicts = "OVERWRITE"
+      resolve_conflicts        = "OVERWRITE"
     }
 
     eks-pod-identity-agent = {
@@ -115,7 +139,7 @@ module "eks" {
 
       policy_associations = [
         {
-          policy_arn  = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+          policy_arn   = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
           access_scope = { type = "cluster" }
         }
       ]
@@ -127,7 +151,7 @@ module "eks" {
 
       policy_associations = [
         {
-          policy_arn  = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+          policy_arn   = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
           access_scope = { type = "cluster" }
         }
       ]
